@@ -12,7 +12,7 @@ services:
       - ./:/var/www/admission
       - /var/www/admission/node_modules
       - .env/:/app/.env
-      - ./logsdetect/:/app/logs
+      - ./logs/:/app/logs
     restart: unless-stopped
     depends_on: 
       - mongodb
@@ -50,3 +50,4 @@ networks:
 volumes:
   dbdata:
   rabbit_data:
+  logs:
