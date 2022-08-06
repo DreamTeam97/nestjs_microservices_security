@@ -1,7 +1,7 @@
 {
-  "name": "backend-herospeech",
+  "name": "nestjs-microservices-security",
   "version": "1.6.5",
-  "description": "Backend Hero Speech",
+  "description": "Nestjs Microservices Security",
   "author": {
     "name": "David"
   },

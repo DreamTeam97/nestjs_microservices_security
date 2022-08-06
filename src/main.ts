@@ -22,15 +22,17 @@ async function bootstrap() {
   );
 
   const microservice: string = configService.get<string>('app.microserviceOn');
-  const rabbitUrl: string = configService.get<string>('rabbitmq.rb_url');
-  const tokenQueue: string = configService.get<string>('rabbitmq.token_queue');
+  const rabbitUrl: string = configService.get<string>('rabbitmq.rbUrl');
+  const securityQueue: string = configService.get<string>(
+    'rabbitmq.securityQueue',
+  );
 
   if (microservice) {
     app.connectMicroservice({
       transport: Transport.RMQ,
       options: {
         urls: [rabbitUrl],
-        queue: tokenQueue,
+        queue: securityQueue,
         queueOptions: { durable: false },
         prefetchCount: 1,
       },
@@ -58,7 +60,7 @@ async function bootstrap() {
 
   // Swagger
   const config = new DocumentBuilder()
-    .setTitle('NestJS Starter Template')
+    .setTitle('Nestjs Microservices Security Template')
     .setDescription('This is a starter template where everything is set up.')
     .setVersion('1.0')
     .build();
