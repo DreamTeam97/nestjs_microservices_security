@@ -21,18 +21,23 @@ async function bootstrap() {
     'app.versioning.prefix',
   );
 
+  const microservice: string = configService.get<string>('app.microserviceOn');
   const rabbitUrl: string = configService.get<string>('rabbitmq.rb_url');
   const tokenQueue: string = configService.get<string>('rabbitmq.token_queue');
 
-  app.connectMicroservice({
-    transport: Transport.RMQ,
-    options: {
-      urls: [rabbitUrl],
-      queue: tokenQueue,
-      queueOptions: { durable: false },
-      prefetchCount: 1,
-    },
-  });
+  if (microservice) {
+    app.connectMicroservice({
+      transport: Transport.RMQ,
+      options: {
+        urls: [rabbitUrl],
+        queue: tokenQueue,
+        queueOptions: { durable: false },
+        prefetchCount: 1,
+      },
+    });
+
+    await app.startAllMicroservices();
+  }
 
   const logger = new Logger();
   process.env.TZ = tz;
