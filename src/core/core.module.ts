@@ -11,6 +11,7 @@ import { DATABASE_CONNECTION_NAME } from 'src/database/database.constant';
 import { HelperModule } from 'src/utils/helper/helper.module';
 import { MiddlewareModule } from 'src/utils/middleware/middleware.module';
 import { CacheModule } from 'src/cache/cache.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 @Module({
   controllers: [],

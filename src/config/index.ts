@@ -5,6 +5,7 @@ import HelperConfig from 'src/config/helper.config';
 import UserConfig from './user.config';
 import FileConfig from './file.config';
 import MiddlewareConfig from './middleware.config';
+import RabbitMQConfig from './rabbitmq.config';
 
 export default [
   AppConfig,
@@ -14,4 +15,5 @@ export default [
   UserConfig,
   MiddlewareConfig,
   FileConfig,
+  RabbitMQConfig,
 ];

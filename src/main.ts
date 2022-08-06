@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { useContainer } from 'class-validator';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app: NestApplication = await NestFactory.create(AppModule);
@@ -19,6 +20,19 @@ async function bootstrap() {
   const versioningPrefix: string = configService.get<string>(
     'app.versioning.prefix',
   );
+
+  const rabbitUrl: string = configService.get<string>('rabbitmq.rb_url');
+  const tokenQueue: string = configService.get<string>('rabbitmq.token_queue');
+
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [rabbitUrl],
+      queue: tokenQueue,
+      queueOptions: { durable: false },
+      prefetchCount: 1,
+    },
+  });
 
   const logger = new Logger();
   process.env.TZ = tz;
